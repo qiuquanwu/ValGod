@@ -5,4 +5,4 @@
 - 复制粘贴插件：clipboard.js
 - 请求库：axios
 # 效果图
-![效果](./img/demo.png "效果")
+![](https://i.loli.net/2020/08/08/jIuNvipOxK5ZrR8.png)
