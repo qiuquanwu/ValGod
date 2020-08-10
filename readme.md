@@ -7,4 +7,4 @@
 
 后端接口：[https://github.com/qiuquanwu/vite-programer-backend](https://github.com/qiuquanwu/vite-programer-backend)
 # 效果图
-![](https://i.loli.net/2020/08/08/jIuNvipOxK5ZrR8.png)
+![](https://ftp.bmp.ovh/imgs/2020/08/10181238ff76d56d.png)

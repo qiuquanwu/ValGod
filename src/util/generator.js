@@ -46,6 +46,31 @@ const genetator = {
       value: res.join("_"),
     };
   },
+  php: (translateArray) => {
+    const res = translateArray.map((str, index) => {
+      if (index == 0) {
+        return str.charAt(0).toLowerCase() + str.slice(1);
+      }
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+    return {
+      id: "php",
+      example: "$firstName",
+      title: "php变量",
+      value: "$"+res.join(""),
+    };
+  },
+  controller: (translateArray) => {
+    const res = translateArray.map((str) => {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+    return {
+      id: "controller",
+      example: "FirstNameController",
+      title: "控制器",
+      value: res.join("")+"Controller", 
+    };
+  }
 };
 
 export default genetator;

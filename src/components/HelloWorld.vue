@@ -1,9 +1,14 @@
 <template>
-  <div>
+  <div class="warp">
     <h1>{{ msg }}</h1>
-    <input type="text" v-model="state.text" placeholder="请输入内容" />
-    <button @click="query">确定</button>
-    <div>
+    <input
+      type="text"
+      v-model="state.text"
+      placeholder="请输入内容"
+      class="search-input"
+    />
+    <button @click="query" class="search-btn">确定</button>
+    <div style="margin-top: 30px;">
       <ul>
         <li v-for="item in state.resultArray" :key="item.id">
           <result-item :resultItme="item" />
@@ -21,7 +26,14 @@ import axios from "axios";
 let initState = {
   text: "", //带翻译得原文
   translateArray: [], //翻译得结果数组
-  options: ["bigHumpNaming", "smallHumpNaming", "underlineNaming", "constant"], //配置项
+  options: [
+    "bigHumpNaming",
+    "smallHumpNaming",
+    "underlineNaming",
+    "constant",
+    "php",
+    "controller",
+  ], //配置项
   resultArray: [],
 };
 //将翻译转化
@@ -46,8 +58,12 @@ export default {
     const query = () => {
       //中文判断
       if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
-        axios.get("/api/translate/" + state.text).then((res) => { 
-          let translateArray = res.data.translation[0].split(" ");
+        axios.get("/api/translate/" + state.text).then((res) => {
+          let translateArray = res.data.translation[0]
+            .toLowerCase()
+            .replace("user's", "user")
+            .replace("the ", "")
+            .split(" ");
           //执行翻译请求
           let resultArray = getResultArray(translateArray, state.options);
           state.resultArray = resultArray;
@@ -65,3 +81,49 @@ export default {
   },
 };
 </script>
+<style lang="stylus" scoped>
+.warp{
+  color :#fff
+}
+.warp .search-input{
+  padding-left 10px
+  margin-top 60px
+  width 300px
+  height 40px
+  outline none
+  background #0091ff
+  border-radius 5px
+  border none
+  color #ffffff
+  box-shadow  7px 7px 13px #007ede, 
+             -7px -7px 13px #00a4ff
+}
+input::-webkit-input-placeholder {
+  color: #ffffff;
+  }
+  input:-moz-placeholder {
+  color: #ffffff;
+  }
+  input::-moz-placeholder {
+  color: #ffffff;
+  }
+  input:-ms-input-placeholder {
+  color: #ffffff;
+  }
+.warp .search-btn
+  color #fff
+  width 60px
+  height 40px
+  border-radius 5px
+  margin-left 30px
+  border none
+  outline none
+  background  #0091ff
+  box-shadow  7px 7px 13px #0078d4, 
+             -7px -7px 13px #00aaff;
+.warp .search-btn:hover{
+    background: linear-gradient(145deg, #009bff, #0083e6);
+box-shadow:  7px 7px 13px #0078d4, 
+             -7px -7px 13px #00aaff;
+}
+</style>

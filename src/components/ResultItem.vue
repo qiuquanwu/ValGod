@@ -1,8 +1,13 @@
 <template>
-  <div>
+  <div class="result-item">
     {{ resultItme.title }}:{{ resultItme.value }}
-    <button class="btn" :data-clipboard-text="resultItme.value" @click="copy">
-      复制
+    <button
+      class="btn"
+      :data-clipboard-text="resultItme.value"
+      @click="copy"
+      title="复制"
+    >
+      <img src="../assets/copy.png" class="icon" />
     </button>
   </div>
 </template>
@@ -31,4 +36,18 @@ export default {
   },
 };
 </script>
-<style lang="stylus" scope></style>
+<style lang="stylus" scope>
+color1 = #0091ff
+.result-item
+  height 30px
+  margin-top 5px
+  line-height 30px
+.icon
+  width 20px
+  height 20px
+  background-color #0091ff
+.btn
+  background #0091ff
+  border none
+  outline none
+</style>
