@@ -21,7 +21,7 @@ export default {
     const copy = () => {
       let clipboard = new Clipboard(".btn");
       clipboard.on("success", (e) => {
-        console.log("复制成功");
+        alert("复制成功")
         clipboard.destroy();
       });
       clipboard.on("error", (e) => {
@@ -37,7 +37,6 @@ export default {
 };
 </script>
 <style lang="stylus" scope>
-color1 = #0091ff
 .result-item
   height 30px
   margin-top 5px
@@ -45,9 +44,12 @@ color1 = #0091ff
 .icon
   width 20px
   height 20px
+  opacity 1
   background-color #0091ff
 .btn
-  background #0091ff
+  width 20px
+  height 20px
+  opacity 1
   border none
   outline none
 </style>

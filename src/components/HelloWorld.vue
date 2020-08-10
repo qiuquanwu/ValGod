@@ -8,9 +8,18 @@
       class="search-input"
     />
     <button @click="query" class="search-btn">确定</button>
-    <div style="margin-top: 30px;">
+    <div style="margin-top: 30px;" class="resultWrap">
+      有道云
       <ul>
         <li v-for="item in state.resultArray" :key="item.id">
+          <result-item :resultItme="item" />
+        </li>
+      </ul>
+    </div>
+    <div style="margin-top: 30px;" class="resultWrap">
+      百度
+      <ul>
+        <li v-for="item in state.resultArrayBaidu" :key="item.id">
           <result-item :resultItme="item" />
         </li>
       </ul>
@@ -35,6 +44,7 @@ let initState = {
     "controller",
   ], //配置项
   resultArray: [],
+  resultArrayBaidu: [],
 };
 //将翻译转化
 const getResultArray = (translateArray, options) => {
@@ -68,6 +78,17 @@ export default {
           let resultArray = getResultArray(translateArray, state.options);
           state.resultArray = resultArray;
         });
+        axios.get("/api/baiduTranslate/" + state.text).then((res) => {
+          console.log(res.data);
+          let translateArray = res.data.trans_result[0].dst
+            .toLowerCase()
+            .replace("user's", "user")
+            .replace("the ", "")
+            .split(" ");
+          //执行翻译请求
+          let resultArrayBaidu = getResultArray(translateArray, state.options);
+          state.resultArrayBaidu = resultArrayBaidu;
+        });
       } else {
         alert("请输入纯中文!");
       }
@@ -95,7 +116,7 @@ export default {
   border-radius 5px
   border none
   color #ffffff
-  box-shadow  7px 7px 13px #007ede, 
+  box-shadow  7px 7px 13px #007ede,
              -7px -7px 13px #00a4ff
 }
 input::-webkit-input-placeholder {
@@ -119,11 +140,22 @@ input::-webkit-input-placeholder {
   border none
   outline none
   background  #0091ff
-  box-shadow  7px 7px 13px #0078d4, 
+  box-shadow  7px 7px 13px #0078d4,
              -7px -7px 13px #00aaff;
 .warp .search-btn:hover{
     background: linear-gradient(145deg, #009bff, #0083e6);
-box-shadow:  7px 7px 13px #0078d4, 
+box-shadow:  7px 7px 13px #0078d4,
              -7px -7px 13px #00aaff;
+}
+.resultWrap{
+      margin: 0 auto;
+      width 400px
+      background: linear-gradient(145deg, #009bff, #0083e6);
+      box-shadow:  7px 7px 13px #0078d4,
+             -7px -7px 13px #00aaff;
+      padding 20px
+}
+.resultWrap li{
+  list-style none
 }
 </style>
