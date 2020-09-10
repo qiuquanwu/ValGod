@@ -1,13 +1,8 @@
 <template>
   <div class="warp">
     <h1>{{ msg }}</h1>
-    <input
-      type="text"
-      v-model="state.text"
-      placeholder="请输入内容"
-      class="search-input"
-    />
-    <button @click="query" class="search-btn">确定</button>
+    <input type="text" v-model="state.text" placeholder="请输入内容" class="search-input" />
+    <button @click="queryByJs" class="search-btn">确定</button>
     <div style="margin-top: 30px;" class="resultWrap">
       有道云
       <ul>
@@ -65,6 +60,19 @@ export default {
   setup(props) {
     const state = reactive(initState);
 
+    const queryByJs = () => {
+      if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
+        axios.get("/api/translate/" + state.text).then((res) => {
+          
+        });
+        axios.get("/api/baiduTranslate/" + state.text).then((res) => {
+
+        });
+      } else {
+        alert("请输入纯中文!");
+      }
+    };
+
     const query = () => {
       //中文判断
       if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
@@ -98,64 +106,71 @@ export default {
     return {
       state,
       query,
+      queryByJs,
     };
   },
 };
 </script>
 <style lang="stylus" scoped>
-.warp{
-  color :#fff
+.warp {
+  color: #fff;
 }
-.warp .search-input{
-  padding-left 10px
-  margin-top 60px
-  width 300px
-  height 40px
-  outline none
-  background #0091ff
-  border-radius 5px
-  border none
-  color #ffffff
-  box-shadow  7px 7px 13px #007ede,
-             -7px -7px 13px #00a4ff
+
+.warp .search-input {
+  padding-left: 10px;
+  margin-top: 60px;
+  width: 300px;
+  height: 40px;
+  outline: none;
+  background: #0091ff;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  box-shadow: 7px 7px 13px #007ede, -7px -7px 13px #00a4ff;
 }
+
 input::-webkit-input-placeholder {
   color: #ffffff;
-  }
-  input:-moz-placeholder {
-  color: #ffffff;
-  }
-  input::-moz-placeholder {
-  color: #ffffff;
-  }
-  input:-ms-input-placeholder {
-  color: #ffffff;
-  }
-.warp .search-btn
-  color #fff
-  width 60px
-  height 40px
-  border-radius 5px
-  margin-left 30px
-  border none
-  outline none
-  background  #0091ff
-  box-shadow  7px 7px 13px #0078d4,
-             -7px -7px 13px #00aaff;
-.warp .search-btn:hover{
-    background: linear-gradient(145deg, #009bff, #0083e6);
-box-shadow:  7px 7px 13px #0078d4,
-             -7px -7px 13px #00aaff;
 }
-.resultWrap{
-      margin: 0 auto;
-      width 400px
-      background: linear-gradient(145deg, #009bff, #0083e6);
-      box-shadow:  7px 7px 13px #0078d4,
-             -7px -7px 13px #00aaff;
-      padding 20px
+
+input:-moz-placeholder {
+  color: #ffffff;
 }
-.resultWrap li{
-  list-style none
+
+input::-moz-placeholder {
+  color: #ffffff;
+}
+
+input:-ms-input-placeholder {
+  color: #ffffff;
+}
+
+.warp .search-btn {
+  color: #fff;
+  width: 60px;
+  height: 40px;
+  border-radius: 5px;
+  margin-left: 30px;
+  border: none;
+  outline: none;
+  background: #0091ff;
+  box-shadow: 7px 7px 13px #0078d4, -7px -7px 13px #00aaff;
+}
+
+.warp .search-btn:hover {
+  background: linear-gradient(145deg, #009bff, #0083e6);
+  box-shadow: 7px 7px 13px #0078d4, -7px -7px 13px #00aaff;
+}
+
+.resultWrap {
+  margin: 0 auto;
+  width: 400px;
+  background: linear-gradient(145deg, #009bff, #0083e6);
+  box-shadow: 7px 7px 13px #0078d4, -7px -7px 13px #00aaff;
+  padding: 20px;
+}
+
+.resultWrap li {
+  list-style: none;
 }
 </style>
