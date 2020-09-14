@@ -4,7 +4,7 @@
     <input type="text" v-model="state.text" placeholder="请输入内容" class="search-input" />
     <button @click="queryByJs" class="search-btn">确定</button>
     <div style="margin-top: 30px;" class="resultWrap">
-      有道云(js-sdk有问题)
+      有道云
       <ul>
         <li v-for="item in state.resultArray" :key="item.id">
           <result-item :resultItme="item" />
@@ -28,6 +28,7 @@ import genetator from "../util/generator";
 import ResultItem from "./ResultItem.vue";
 import axios from "axios";
 import getParam from "../util/bd";
+import getYDParam from "../util/request";
 let initState = {
   text: "", //带翻译得原文
   translateArray: [], //翻译得结果数组
@@ -64,20 +65,39 @@ export default {
     const queryByJs = () => {
       if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
         let data = getParam(state.text);
+        let dataYd = getYDParam(state.text);
         $.ajax({
           url: "http://api.fanyi.baidu.com/api/trans/vip/translate",
           type: "get",
           dataType: "jsonp",
           data: data,
           success: function (data) {
-            console.log(data.trans_result[0].dst);
             let translateArray = data.trans_result[0].dst
               .toLowerCase()
               .replace("user's", "user")
               .replace("the ", "")
               .split(" ");
-            let resultArrayBaidu = getResultArray(translateArray, state.options);
+            let resultArrayBaidu = getResultArray(
+              translateArray,
+              state.options
+            );
             state.resultArrayBaidu = resultArrayBaidu;
+          },
+        });
+        $.ajax({
+          url: "http://openapi.youdao.com/api",
+          type: "post",
+          dataType: "jsonp",
+          data: dataYd,
+          success: function (data) {
+            let translateArray = data.translation[0]
+              .toLowerCase()
+              .replace("user's", "user")
+              .replace("the ", "")
+              .split(" ");
+            //执行翻译请求
+            let resultArray = getResultArray(translateArray, state.options);
+            state.resultArray = resultArray;
           },
         });
       } else {

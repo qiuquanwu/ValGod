@@ -200,21 +200,22 @@ var MD5 = function (string) {
 }
 var appid = '20200811000539625';
 var key = 'qoLUfDJ1scEIdj3RitFC';
-var salt = (new Date).getTime();
+
 var to = 'en';
 var from = 'zh';
-const getSign= (q)=>{
+const getSign= (q,salt)=>{
     var str1 = appid + q + salt +key;
     return MD5(str1);
  }
 const getParam = (q)=>{
+    var salt = (new Date).getTime();
     return{
         q: q,
         appid: appid,
         salt: salt,
         from: from,
         to: to,
-        sign: getSign(q)
+        sign: getSign(q,salt)
     }
 }
 export default getParam
