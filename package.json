@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.0-rc.1",
+    "crypto-js": "^4.0.0",
     "stylus": "^0.54.8",
     "vite": "^1.0.0-rc.1"
   }

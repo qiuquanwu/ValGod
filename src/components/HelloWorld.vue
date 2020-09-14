@@ -4,7 +4,7 @@
     <input type="text" v-model="state.text" placeholder="请输入内容" class="search-input" />
     <button @click="queryByJs" class="search-btn">确定</button>
     <div style="margin-top: 30px;" class="resultWrap">
-      有道云
+      有道云(js-sdk有问题)
       <ul>
         <li v-for="item in state.resultArray" :key="item.id">
           <result-item :resultItme="item" />
@@ -27,6 +27,7 @@ import { watchEffect, reactive } from "vue";
 import genetator from "../util/generator";
 import ResultItem from "./ResultItem.vue";
 import axios from "axios";
+import getParam from "../util/bd";
 let initState = {
   text: "", //带翻译得原文
   translateArray: [], //翻译得结果数组
@@ -62,11 +63,22 @@ export default {
 
     const queryByJs = () => {
       if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
-        axios.get("/api/translate/" + state.text).then((res) => {
-          
-        });
-        axios.get("/api/baiduTranslate/" + state.text).then((res) => {
-
+        let data = getParam(state.text);
+        $.ajax({
+          url: "http://api.fanyi.baidu.com/api/trans/vip/translate",
+          type: "get",
+          dataType: "jsonp",
+          data: data,
+          success: function (data) {
+            console.log(data.trans_result[0].dst);
+            let translateArray = data.trans_result[0].dst
+              .toLowerCase()
+              .replace("user's", "user")
+              .replace("the ", "")
+              .split(" ");
+            let resultArrayBaidu = getResultArray(translateArray, state.options);
+            state.resultArrayBaidu = resultArrayBaidu;
+          },
         });
       } else {
         alert("请输入纯中文!");
