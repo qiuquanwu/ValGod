@@ -39,6 +39,7 @@ let initState = {
     "constant",
     "php",
     "controller",
+    "cssStyle"
   ], //配置项
   resultArray: [],
   resultArrayBaidu: [],
@@ -63,9 +64,11 @@ export default {
     const state = reactive(initState);
 
     const queryByJs = () => {
+       //中文判断
       if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
         let data = getParam(state.text);
         let dataYd = getYDParam(state.text);
+        // 百度结果
         $.ajax({
           url: "http://api.fanyi.baidu.com/api/trans/vip/translate",
           type: "get",
@@ -84,6 +87,7 @@ export default {
             state.resultArrayBaidu = resultArrayBaidu;
           },
         });
+        // 网易云接口
         $.ajax({
           url: "http://openapi.youdao.com/api",
           type: "post",

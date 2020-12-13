@@ -70,6 +70,17 @@ const genetator = {
       title: "控制器",
       value: res.join("")+"Controller", 
     };
+  },
+  cssStyle: (translateArray) => {
+    const res = translateArray.map((str) => {
+        return str.toLowerCase();
+      });
+    return {
+      id: "underlineNaming",
+      example: "first_name",
+      title: "css类名",
+      value: res.join("-"),
+    };
   }
 };
 
