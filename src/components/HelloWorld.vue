@@ -1,9 +1,30 @@
 <template>
   <div class="warp">
     <h1>{{ msg }}</h1>
-    <input type="text" v-model="state.text" placeholder="请输入内容" class="search-input" />
+    <input
+      type="text"
+      v-model="state.text"
+      placeholder="请输入内容"
+      class="search-input"
+    />
     <button @click="queryByJs" class="search-btn">确定</button>
-    <div style="margin-top: 30px;" class="resultWrap">
+    <div class="custom-control custom-checkbox" style="margin-top: 30px">
+      <input
+        type="checkbox"
+        class="custom-control-input"
+        id="youdao"
+        v-model="state.hasYoudao"
+      />
+      <label class="custom-control-label" for="youdao">有道</label>
+      <input
+        type="checkbox"
+        class="custom-control-input"
+        id="baidu"
+        v-model="state.hasBaidu"
+      />
+      <label class="custom-control-label" for="baidu">百度</label>
+    </div>
+    <div style="margin-top: 30px" class="resultWrap" v-if="state.hasYoudao">
       有道云
       <ul>
         <li v-for="item in state.resultArray" :key="item.id">
@@ -11,7 +32,7 @@
         </li>
       </ul>
     </div>
-    <div style="margin-top: 30px;" class="resultWrap">
+    <div style="margin-top: 30px" class="resultWrap" v-if="state.hasBaidu">
       百度
       <ul>
         <li v-for="item in state.resultArrayBaidu" :key="item.id">
@@ -39,10 +60,12 @@ let initState = {
     "constant",
     "php",
     "controller",
-    "cssStyle"
+    "cssStyle",
   ], //配置项
   resultArray: [],
   resultArrayBaidu: [],
+  hasBaidu: true,
+  hasYoudao: true,
 };
 //将翻译转化
 const getResultArray = (translateArray, options) => {
@@ -62,9 +85,9 @@ export default {
   },
   setup(props) {
     const state = reactive(initState);
-
+    //  通过JS查询
     const queryByJs = () => {
-       //中文判断
+      //中文判断
       if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
         let data = getParam(state.text);
         let dataYd = getYDParam(state.text);
@@ -208,5 +231,8 @@ input:-ms-input-placeholder {
 
 .resultWrap li {
   list-style: none;
+}
+.custom-control-input{
+  
 }
 </style>
