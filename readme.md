@@ -7,6 +7,8 @@
 - 在线地址：[http://isfive.gitee.io/vite-programer/](http://isfive.gitee.io/vite-programer/)
 
 后端接口：[https://github.com/qiuquanwu/vite-programer-backend](https://github.com/qiuquanwu/vite-programer-backend)
-
+# 更新 2021年1月10日 07点48分
+- 按下回车触发
+- 取消alert提示
 # 效果图
 ![](https://ftp.bmp.ovh/imgs/2020/08/427626c98f48d3da.png)

@@ -15,6 +15,7 @@
       v-model="state.text"
       placeholder="请输入内容"
       class="search-input"
+      @keydown="clickOnEnter"
     />
     <button @click="queryByJs" class="search-btn">确定</button>
     <div class="custom-control custom-checkbox" style="margin-top: 30px">
@@ -70,7 +71,7 @@ let initState = {
     "php",
     "controller",
     "cssStyle",
-  ], //配置项
+  ], //configurationItem
   resultArray: [],
   resultArrayBaidu: [],
   hasBaidu: true,
@@ -140,6 +141,14 @@ export default {
         alert("请输入纯中文!");
       }
     };
+    // 回车事件
+    const clickOnEnter=(e)=>{
+      var evt = window.event || e;
+        if (evt.keyCode == 13) {
+          queryByJs()
+        }
+      // return false
+    }
 
     const query = () => {
       //中文判断
@@ -170,11 +179,12 @@ export default {
       }
     };
 
-    watchEffect(() => {});
+    //watchEffect(() => {});
     return {
       state,
       query,
       queryByJs,
+      clickOnEnter
     };
   },
 };

@@ -1,5 +1,6 @@
 <template>
   <div class="result-item">
+    <span v-if="isCopy" style="color:red">已复制!</span>
     {{ resultItme.title }}:{{ resultItme.value }}
     <button
       class="btn"
@@ -9,20 +10,27 @@
     >
       <img src="../assets/copy.png" class="icon" />
     </button>
+    
   </div>
 </template>
 <script>
 import Clipboard from "clipboard";
+import {ref} from "vue"
 export default {
   props: {
     resultItme: Object,
   },
   setup(props) {
+    const isCopy=ref(false)
     const copy = () => {
       let clipboard = new Clipboard(".btn");
       clipboard.on("success", (e) => {
-        alert("复制成功")
+        isCopy.value=true
         clipboard.destroy();
+        let timeout=setTimeout(()=>{
+          isCopy.value=false
+          clearTimeout(timeout)
+        },1000)
       });
       clipboard.on("error", (e) => {
         // 不支持复制
@@ -32,6 +40,7 @@ export default {
     };
     return {
       copy,
+      isCopy
     };
   },
 };

@@ -8,5 +8,8 @@ module.exports = {
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
       }
-    }
+    },
+    build:{
+      assetsDir:"./"
+    }  
   }
