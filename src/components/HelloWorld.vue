@@ -1,6 +1,15 @@
 <template>
   <div class="warp">
-    <h1>{{ msg }}</h1>
+    <h1>
+      {{ msg }}
+      <a href="https://gitee.com/isfive/vite-programer/stargazers">
+        <img
+          src="https://gitee.com/isfive/vite-programer/badge/star.svg?theme=dark"
+          alt="star"
+        />
+      </a>
+    </h1>
+
     <input
       type="text"
       v-model="state.text"
@@ -232,7 +241,7 @@ input:-ms-input-placeholder {
 .resultWrap li {
   list-style: none;
 }
-.custom-control-input{
-  
+
+.custom-control-input {
 }
 </style>
