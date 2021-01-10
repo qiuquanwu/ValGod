@@ -1,6 +1,6 @@
 {
-  "name": "vite-programer",
-  "version": "0.0.1",
+  "name": "GodVal",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
@@ -15,5 +15,6 @@
     "crypto-js": "^4.0.0",
     "stylus": "^0.54.8",
     "vite": "^1.0.0-rc.1"
-  }
+  },
+  "author": "qiuquanwu"
 }

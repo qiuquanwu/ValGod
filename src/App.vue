@@ -1,16 +1,16 @@
 <template>
   <div>
-    <HelloWorld msg="程序员翻译工具"></HelloWorld>
+    <GodVal msg="变量名神器-GodVal"></GodVal>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import GodVal from "./components/GodVal.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    GodVal,
   },
 };
 </script>

@@ -9,16 +9,17 @@
         />
       </a>
     </h1>
-
     <input
       type="text"
       v-model="state.text"
-      placeholder="请输入内容"
+      :placeholder="inputPlaceholder"
       class="search-input"
       @keydown="clickOnEnter"
+      @focus="getFocus"
     />
     <button @click="queryByJs" class="search-btn">确定</button>
-    <div class="custom-control custom-checkbox" style="margin-top: 30px">
+    <button @click="toggerSetting" class="search-btn" >设置</button>
+    <div class="custom-control custom-checkbox" style="margin-top: 30px" v-show="openSetting">
       <input
         type="checkbox"
         class="custom-control-input"
@@ -54,7 +55,7 @@
 </template>
 
 <script>
-import { watchEffect, reactive } from "vue";
+import { watchEffect, reactive,ref } from "vue";
 import genetator from "../util/generator";
 import ResultItem from "./ResultItem.vue";
 import axios from "axios";
@@ -86,7 +87,7 @@ const getResultArray = (translateArray, options) => {
   return resultArray;
 };
 export default {
-  name: "HelloWorld",
+  name: "GodVal",
   props: {
     msg: String,
   },
@@ -95,6 +96,19 @@ export default {
   },
   setup(props) {
     const state = reactive(initState);
+    // 初始输入框提示内容
+    const inputPlaceholder=ref("请输入内容,再点击确定或者回车")
+    //显示设置
+    const openSetting=ref(false)
+    //获取焦点
+    const getFocus=()=>{
+      //console.log(123);
+        inputPlaceholder.value=""
+    }
+    //显示设置切换
+    const toggerSetting=()=>{
+      openSetting.value=!openSetting.value
+    }
     //  通过JS查询
     const queryByJs = () => {
       //中文判断
@@ -112,6 +126,7 @@ export default {
               .toLowerCase()
               .replace("user's", "user")
               .replace("the ", "")
+              .replace("-", " ")
               .split(" ");
             let resultArrayBaidu = getResultArray(
               translateArray,
@@ -131,6 +146,7 @@ export default {
               .toLowerCase()
               .replace("user's", "user")
               .replace("the ", "")
+              .replace("-", " ")
               .split(" ");
             //执行翻译请求
             let resultArray = getResultArray(translateArray, state.options);
@@ -149,7 +165,7 @@ export default {
         }
       // return false
     }
-
+    // 使用java后端api
     const query = () => {
       //中文判断
       if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
@@ -184,7 +200,11 @@ export default {
       state,
       query,
       queryByJs,
-      clickOnEnter
+      clickOnEnter,
+      inputPlaceholder,
+      getFocus,
+      openSetting,
+      toggerSetting
     };
   },
 };
@@ -196,8 +216,8 @@ export default {
 
 .warp .search-input {
   padding-left: 10px;
-  margin-top: 60px;
-  width: 300px;
+  margin-top: 30px;
+  width: 285px;
   height: 40px;
   outline: none;
   background: #0091ff;
@@ -228,7 +248,7 @@ input:-ms-input-placeholder {
   width: 60px;
   height: 40px;
   border-radius: 5px;
-  margin-left: 30px;
+  margin-left: 15px;
   border: none;
   outline: none;
   background: #0091ff;
