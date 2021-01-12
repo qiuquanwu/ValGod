@@ -5,6 +5,7 @@
 - 复制粘贴插件：clipboard.js
 - 请求库：axios
 - 在线地址：[http://isfive.gitee.io/vite-programer/](http://isfive.gitee.io/vite-programer/)
+- 在线地址：[备用地址](https://valgod.vercel.app/)
 
 后端接口：[https://github.com/qiuquanwu/vite-programer-backend](https://github.com/qiuquanwu/vite-programer-backend)
 # 更新 2021年1月10日 07点48分
