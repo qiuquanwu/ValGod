@@ -18,8 +18,12 @@
       @focus="getFocus"
     />
     <button @click="queryByJs" class="search-btn">确定</button>
-    <button @click="toggerSetting" class="search-btn" >设置</button>
-    <div class="custom-control custom-checkbox" style="margin-top: 30px" v-show="openSetting">
+    <button @click="toggerSetting" class="search-btn">设置</button>
+    <div
+      class="custom-control custom-checkbox"
+      style="margin-top: 30px"
+      v-show="openSetting"
+    >
       <input
         type="checkbox"
         class="custom-control-input"
@@ -34,28 +38,65 @@
         v-model="state.hasBaidu"
       />
       <label class="custom-control-label" for="baidu">百度</label>
+      <input
+        type="checkbox"
+        class="custom-control-input"
+        id="history"
+        v-model="state.showHistory"
+      />
+      <label class="custom-control-label" for="history">历史查询</label>
     </div>
-    <div style="margin-top: 30px" class="resultWrap" v-if="state.hasYoudao">
-      有道云
-      <ul>
-        <li v-for="item in state.resultArray" :key="item.id">
-          <result-item :resultItme="item" />
-        </li>
-      </ul>
+    <!-- 当前查询结果开始 -->
+    <div class="resultWrapBox">
+      <div style="margin-top: 30px" class="resultWrap" v-if="state.hasYoudao">
+        有道云
+        <ul>
+          <li v-for="item in state.resultArray" :key="item.id">
+            <result-item :resultItme="item" />
+          </li>
+        </ul>
+      </div>
+      <div style="margin-top: 30px" class="resultWrap" v-if="state.hasBaidu">
+        百度
+        <ul>
+          <li v-for="item in state.resultArrayBaidu" :key="item.id">
+            <result-item :resultItme="item" />
+          </li>
+        </ul>
+      </div>
     </div>
-    <div style="margin-top: 30px" class="resultWrap" v-if="state.hasBaidu">
-      百度
-      <ul>
-        <li v-for="item in state.resultArrayBaidu" :key="item.id">
-          <result-item :resultItme="item" />
-        </li>
-      </ul>
+    <!-- 当前查询结果结束 -->
+    <!-- 历史记录 -->
+    <div style="margin-top: 30px" v-show="state.showHistory">
+      历史记录
+      <div
+        class="resultWrapBox"
+        v-for="(historicalData, index) in state.historicalDatas"
+        :key="index"
+      >
+        <div style="margin-top: 30px" class="resultWrap" v-if="state.hasYoudao">
+          有道云
+          <ul>
+            <li v-for="item in historicalData.resultArray" :key="item.id">
+              <result-item :resultItme="item" />
+            </li>
+          </ul>
+        </div>
+        <div style="margin-top: 30px" class="resultWrap" v-if="state.hasBaidu">
+          百度
+          <ul>
+            <li v-for="item in historicalData.resultArrayBaidu" :key="item.id">
+              <result-item :resultItme="item" />
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { watchEffect, reactive,ref } from "vue";
+import { watchEffect, reactive, ref } from "vue";
 import genetator from "../util/generator";
 import ResultItem from "./ResultItem.vue";
 import axios from "axios";
@@ -77,7 +118,15 @@ let initState = {
   resultArrayBaidu: [],
   hasBaidu: true,
   hasYoudao: true,
+  historicalDatas: [],
+  showHistory:false
 };
+
+// let historicalData={
+//   name:"",
+//   resultArray:[],
+//   resultArrayBaidu:[]
+// }
 //将翻译转化
 const getResultArray = (translateArray, options) => {
   let resultArray = [];
@@ -97,20 +146,39 @@ export default {
   setup(props) {
     const state = reactive(initState);
     // 初始输入框提示内容
-    const inputPlaceholder=ref("请输入内容,再点击确定或者回车")
+    const inputPlaceholder = ref("请输入内容,再点击确定或者回车");
     //显示设置
-    const openSetting=ref(false)
+    const openSetting = ref(false);
     //获取焦点
-    const getFocus=()=>{
+    const getFocus = () => {
       //console.log(123);
-        inputPlaceholder.value=""
-    }
+      inputPlaceholder.value = "";
+    };
     //显示设置切换
-    const toggerSetting=()=>{
-      openSetting.value=!openSetting.value
-    }
+    const toggerSetting = () => {
+      openSetting.value = !openSetting.value;
+    };
+    // 保存历史数据
+    const _saveHistoricalData = () => {
+      console.log("保存上次查询得数据");
+      if (
+        state.resultArray.length === 0 ||
+        state.resultArrayBaidu.length === 0
+      ) {
+        console.log("没有数据需要保存");
+        return false;
+      } else {
+        let historicalData = {
+          resultArray: state.resultArray,
+          resultArrayBaidu: state.resultArrayBaidu,
+        };
+        state.historicalDatas.push(historicalData);
+      }
+      console.log(state.historicalDatas);
+    };
     //  通过JS查询
     const queryByJs = () => {
+      _saveHistoricalData();
       //中文判断
       if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
         let data = getParam(state.text);
@@ -158,13 +226,13 @@ export default {
       }
     };
     // 回车事件
-    const clickOnEnter=(e)=>{
+    const clickOnEnter = (e) => {
       var evt = window.event || e;
-        if (evt.keyCode == 13) {
-          queryByJs()
-        }
+      if (evt.keyCode == 13) {
+        queryByJs();
+      }
       // return false
-    }
+    };
     // 使用java后端api
     const query = () => {
       //中文判断
@@ -204,7 +272,7 @@ export default {
       inputPlaceholder,
       getFocus,
       openSetting,
-      toggerSetting
+      toggerSetting,
     };
   },
 };
@@ -266,6 +334,8 @@ input:-ms-input-placeholder {
   background: linear-gradient(145deg, #009bff, #0083e6);
   box-shadow: 7px 7px 13px #0078d4, -7px -7px 13px #00aaff;
   padding: 20px;
+  flex: 1;
+  margin-left: 30px;
 }
 
 .resultWrap li {
@@ -273,5 +343,17 @@ input:-ms-input-placeholder {
 }
 
 .custom-control-input {
+}
+
+.resultWrapBox {
+  display: flex;
+}
+
+.resultWrapBox {
+  display: flex;
+  justify-content: center;
+  padding: 0 20%;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>

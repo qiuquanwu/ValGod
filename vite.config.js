@@ -10,6 +10,6 @@ module.exports = {
       }
     },
     build:{
-      assetsDir:"./"
+      assetsDir:"vite-programer/"
     }  
   }
