@@ -8,6 +8,18 @@
 - 在线地址：[备用地址](https://valgod.vercel.app/)
 
 后端接口：[https://github.com/qiuquanwu/vite-programer-backend](https://github.com/qiuquanwu/vite-programer-backend)
+
+# 使用前端配置：
+修改src/config/index.js
+[注册有道云翻译api，百度云api的教程](https://github.com/qiuquanwu/vite-programer-backend/blob/master/readme.md)
+```javascript
+// 有道应用配置
+export const YD_APP_KEY = "78ab6bc4c8f5e1a5"
+export const YD_KEY ='jYOJPLr0Mu9rCp77YAMWGYX1GirBe92w'
+// 百度应用配置
+export const BD_APP_ID = '20200811000539625'
+export const BD_KEY = 'qoLUfDJ1scEIdj3RitFC'
+```
 # 更新日志
 ## 2021年1月10日 07点48分
 - 按下回车触发
