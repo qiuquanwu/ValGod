@@ -175,7 +175,7 @@ export default {
         };
         state.historicalDatas.push(historicalData);
       }
-      console.log(state.historicalDatas);
+      // console.log(state.historicalDatas);
     };
     //  通过JS查询
     const queryByJs = () => {
@@ -186,7 +186,7 @@ export default {
         let dataYd = getYDParam(state.text);
         // 百度结果
         $.ajax({
-          url: "http://api.fanyi.baidu.com/api/trans/vip/translate",
+          url: "https://api.fanyi.baidu.com/api/trans/vip/translate",
           type: "get",
           dataType: "jsonp",
           data: data,
@@ -206,7 +206,7 @@ export default {
         });
         // 网易云接口
         $.ajax({
-          url: "http://openapi.youdao.com/api",
+          url: "https://openapi.youdao.com/api",
           type: "post",
           dataType: "jsonp",
           data: dataYd,
