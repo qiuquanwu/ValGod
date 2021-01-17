@@ -1,15 +1,13 @@
 // vite.config.js
-module.exports = {
-    proxy: {
-      // string shorthand
-      // with options
-      '/api': {
-        target: 'http://localhost:8080/',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
-      }
-    },
-    build:{
-      assetsDir:"vite-programer/"
-    }  
-  }
+import vue from '@vitejs/plugin-vue'
+
+/**
+ * @type {import('vite').UserConfig}
+ */
+export default {
+  plugins: [vue()],
+  build:{
+    base:"./",
+    assetsDir:"asset/"
+  }  
+}

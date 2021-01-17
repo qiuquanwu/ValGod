@@ -19,6 +19,7 @@
     />
     <button @click="queryByJs" class="search-btn">确定</button>
     <button @click="toggerSetting" class="search-btn">设置</button>
+    <!-- 设置开始 -->
     <div
       class="custom-control custom-checkbox"
       style="margin-top: 30px"
@@ -92,6 +93,7 @@
         </div>
       </div>
     </div>
+    <!-- 历史记录结束 -->
   </div>
 </template>
 
@@ -119,7 +121,7 @@ let initState = {
   hasBaidu: true,
   hasYoudao: true,
   historicalDatas: [],
-  showHistory:false
+  showHistory: false,
 };
 
 // let historicalData={

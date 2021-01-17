@@ -8,13 +8,14 @@
   "dependencies": {
     "axios": "^0.19.2",
     "clipboard": "^2.0.6",
-    "vue": "^3.0.0-rc.1"
+    "vue": "^3.0.5"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.0-rc.1",
+    "@vitejs/plugin-vue": "^1.0.6",
+    "@vue/compiler-sfc": "^3.0.5",
     "crypto-js": "^4.0.0",
     "stylus": "^0.54.8",
-    "vite": "^1.0.0-rc.1"
+    "vite": "^2.0.0-beta.12"
   },
   "author": "qiuquanwu"
 }
