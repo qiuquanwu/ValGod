@@ -99,7 +99,7 @@
 
 <script>
 import { watchEffect, reactive, ref } from "vue";
-import genetator from "../util/generator";
+import getResultArray from "../util/getResultArray";
 import ResultItem from "./ResultItem.vue";
 import axios from "axios";
 import getParam from "../util/bd";
@@ -124,19 +124,18 @@ let initState = {
   showHistory: false,
 };
 
-// let historicalData={
-//   name:"",
-//   resultArray:[],
-//   resultArrayBaidu:[]
+// Interface HistoricalData {
+//   name :string,
+//   resultArray:Array,
+//   resultArrayBaidu:Array,
 // }
-//将翻译转化
-const getResultArray = (translateArray, options) => {
-  let resultArray = [];
-  options.map((tranlateId) => {
-    resultArray.push(genetator[tranlateId](translateArray));
-  });
-  return resultArray;
-};
+// const getResultArray = (translateArray, options) => {
+//   let resultArray = [];
+//   options.map((tranlateId) => {
+//     resultArray.push(genetator[tranlateId](translateArray));
+//   });
+//   return resultArray;
+// };
 export default {
   name: "GodVal",
   props: {
@@ -279,7 +278,7 @@ export default {
   },
 };
 </script>
-<style lang="stylus" scoped>
+<style scoped>
 .warp {
   color: #fff;
 }
@@ -344,8 +343,6 @@ input:-ms-input-placeholder {
   list-style: none;
 }
 
-.custom-control-input {
-}
 
 .resultWrapBox {
   display: flex;

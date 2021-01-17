@@ -1,6 +1,6 @@
 {
-  "name": "GodVal",
-  "version": "1.0.0",
+  "name": "val-god",
+  "version": "1.1.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build"

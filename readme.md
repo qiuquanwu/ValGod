@@ -8,12 +8,11 @@
 - 在线地址：[备用地址](https://valgod.vercel.app/)
 
 后端接口：[https://github.com/qiuquanwu/vite-programer-backend](https://github.com/qiuquanwu/vite-programer-backend)
-# 更新 2021年1月10日 07点48分
+# 更新日志
+## 2021年1月10日 07点48分
 - 按下回车触发
 - 取消alert提示
-# 2021年1月13日 17点48分
+## 2021年1月13日 17点48分
 - 历史查询记录
-# 2021年1月17日 19点03分
+## 2021年1月17日 19点03分
 - 升级到vite2.x
-# 效果图
-![](https://ftp.bmp.ovh/imgs/2020/08/427626c98f48d3da.png)
