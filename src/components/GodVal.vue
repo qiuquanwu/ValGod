@@ -76,7 +76,7 @@
         :key="index"
       >
         <div style="margin-top: 30px" class="resultWrap" v-if="state.hasYoudao">
-          有道云
+          有道云:<span style="color:red">{{historicalData.name}}</span>
           <ul>
             <li v-for="item in historicalData.resultArray" :key="item.id">
               <result-item :resultItme="item" />
@@ -84,7 +84,7 @@
           </ul>
         </div>
         <div style="margin-top: 30px" class="resultWrap" v-if="state.hasBaidu">
-          百度
+          百度:<span style="color:red">{{historicalData.name}}</span>
           <ul>
             <li v-for="item in historicalData.resultArrayBaidu" :key="item.id">
               <result-item :resultItme="item" />
@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import { watchEffect, reactive, ref } from "vue";
+import { watchEffect, reactive, ref,computed } from "vue";
 import getResultArray from "../util/getResultArray";
 import ResultItem from "./ResultItem.vue";
 import axios from "axios";
@@ -122,6 +122,7 @@ let initState = {
   hasYoudao: true,
   historicalDatas: [],
   showHistory: false,
+  lastText:""
 };
 
 // Interface HistoricalData {
@@ -170,58 +171,61 @@ export default {
         return false;
       } else {
         let historicalData = {
+          name:state.lastText,
           resultArray: state.resultArray,
           resultArrayBaidu: state.resultArrayBaidu,
         };
         state.historicalDatas.push(historicalData);
       }
-      // console.log(state.historicalDatas);
+       console.log(state.historicalDatas);
     };
-    //  通过JS查询
-    const queryByJs = () => {
-      _saveHistoricalData();
-      //中文判断
-      if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
-        let data = getParam(state.text);
-        let dataYd = getYDParam(state.text);
-        // 百度结果
+
+    const _apiPost = (url, data, type) => {
+      return new Promise((resolve, reject) => {
         $.ajax({
-          url: "https://api.fanyi.baidu.com/api/trans/vip/translate",
-          type: "get",
+          url: url,
+          type: type,
           dataType: "jsonp",
           data: data,
           success: function (data) {
-            let translateArray = data.trans_result[0].dst
+            let translateArray = data.trans_result
+              ? data.trans_result[0].dst
+              : data.translation[0];
+            translateArray = translateArray
               .toLowerCase()
               .replace("user's", "user")
               .replace("the ", "")
               .replace("-", " ")
               .split(" ");
-            let resultArrayBaidu = getResultArray(
-              translateArray,
-              state.options
-            );
-            state.resultArrayBaidu = resultArrayBaidu;
-          },
-        });
-        // 网易云接口
-        $.ajax({
-          url: "https://openapi.youdao.com/api",
-          type: "post",
-          dataType: "jsonp",
-          data: dataYd,
-          success: function (data) {
-            let translateArray = data.translation[0]
-              .toLowerCase()
-              .replace("user's", "user")
-              .replace("the ", "")
-              .replace("-", " ")
-              .split(" ");
-            //执行翻译请求
             let resultArray = getResultArray(translateArray, state.options);
-            state.resultArray = resultArray;
+            resolve(resultArray);
           },
         });
+      });
+    };
+    //  通过JS查询
+    const queryByJs = async () => {
+      
+      //中文判断
+      if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
+        _saveHistoricalData();
+        let data = getParam(state.text);
+        let dataYd = getYDParam(state.text);
+        // 百度结果
+        let resultArrayBaidu = await _apiPost(
+          "https://api.fanyi.baidu.com/api/trans/vip/translate",
+          data,
+          "get"
+        );
+        //有道结果
+        let resultArray = await _apiPost(
+          "https://openapi.youdao.com/api",
+          dataYd,
+          "post"
+        );
+        state.resultArrayBaidu = resultArrayBaidu;
+        state.resultArray = resultArray;
+        state.lastText=state.text
       } else {
         alert("请输入纯中文!");
       }
@@ -342,7 +346,6 @@ input:-ms-input-placeholder {
 .resultWrap li {
   list-style: none;
 }
-
 
 .resultWrapBox {
   display: flex;

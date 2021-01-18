@@ -1,4 +1,4 @@
-# 程序员翻译工具
+# 变量名神器ValGod
 使用技术：
 - 框架：vue-next
 - 构建工具：vite
@@ -28,3 +28,5 @@ export const BD_KEY = 'qoLUfDJ1scEIdj3RitFC'
 - 历史查询记录
 ## 2021年1月17日 19点03分
 - 升级到vite2.x
+## 2021年1月18日 18点45分
+- 优化体验
