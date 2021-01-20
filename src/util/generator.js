@@ -76,8 +76,8 @@ const genetator = {
         return str.toLowerCase();
       });
     return {
-      id: "underlineNaming",
-      example: "first_name",
+      id: "cssStyle",
+      example: "first-name",
       title: "css类名",
       value: res.join("-"),
     };

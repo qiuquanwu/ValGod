@@ -6,10 +6,11 @@
 - 请求库：axios
 - 在线地址：[http://isfive.gitee.io/vite-programer/](http://isfive.gitee.io/vite-programer/)
 - 在线地址：[备用地址](https://valgod.vercel.app/)
-
+# 私有部署
+## 配合后端java（推荐）
 后端接口：[https://github.com/qiuquanwu/vite-programer-backend](https://github.com/qiuquanwu/vite-programer-backend)
 
-# 使用前端配置：
+## 内部搭建配置（纯js）：
 修改src/config/index.js
 [注册有道云翻译api，百度云api的教程](https://github.com/qiuquanwu/vite-programer-backend/blob/master/readme.md)
 ```javascript
@@ -30,3 +31,6 @@ export const BD_KEY = 'qoLUfDJ1scEIdj3RitFC'
 - 升级到vite2.x
 ## 2021年1月18日 18点45分
 - 优化体验
+
+## 2021年1月20日 13点55分
+- ui改版（2.0版本）

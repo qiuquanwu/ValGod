@@ -1,21 +1,14 @@
 <template>
-  <div>
-    <GodVal msg="变量名神器-GodVal"></GodVal>
-  </div>
+  <GodValNew titleName="程序员命名神器-ValGod"/>
 </template>
 
-<script>
-import GodVal from "./components/GodVal.vue";
-
-export default {
-  name: "App",
-  components: {
-    GodVal,
-  },
-};
+<script setup>
+import GodValNew from './components/GodValNew.vue'
 </script>
-<style lang="stylus">
-*
-  margin 0
-  padding 0
+
+<style>
+*{
+  padding:0;
+  margin: 0;
+}
 </style>
