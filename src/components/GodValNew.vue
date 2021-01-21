@@ -37,7 +37,7 @@
     <a-col :span="6" :offset="6" v-if="state.hasBaidu">
       <a-card title="百度">
         <template #extra><a href="#">{{state.lastText}}</a></template>
-        <p v-for="item in state.resultArray" :key="item.id">
+        <p v-for="item of state.resultArray" :key="item.id">
           <result-item-new :resultItme="item" />
         </p>
       </a-card>
@@ -45,7 +45,7 @@
     <a-col :span="6">
       <a-card title="有道" v-if="state.hasYoudao">
         <template #extra><a href="#">{{state.lastText}}</a></template>
-        <p v-for="item in state.resultArrayBaidu" :key="item.id">
+        <p v-for="item of state.resultArrayBaidu" :key="item.id">
           <result-item-new :resultItme="item" />
         </p>
       </a-card>
@@ -57,17 +57,16 @@
     <div style="padding: 0 25%">
       <a-divider>历史记录</a-divider>
     </div>
-
     <div
       class="resultWrapBox"
-      v-for="(historicalData, index) in state.historicalDatas"
+      v-for="(historicalData, index) of state.historicalDatas"
       :key="index"
     >
       <a-row :gutter="[16, 8]" style="margin-top: 10px">
         <a-col :span="6" :offset="6" v-if="state.hasBaidu">
           <a-card title="百度">
             <template #extra><a href="#">{{historicalData.name}}</a></template>
-            <p v-for="item in historicalData.resultArrayBaidu" :key="item.id">
+            <p v-for="item of historicalData.resultArrayBaidu" :key="item.id">
               <result-item-new :resultItme="item" />
             </p>
           </a-card>
@@ -75,7 +74,7 @@
         <a-col :span="6">
           <a-card title="有道" v-if="state.hasYoudao">
             <template #extra><a href="#">{{historicalData.name}}</a></template>
-            <p v-for="item in historicalData.resultArray" :key="item.id">
+            <p v-for="item of historicalData.resultArray" :key="item.id">
               <result-item-new :resultItme="item" />
             </p>
           </a-card>

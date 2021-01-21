@@ -17,7 +17,8 @@
     "babel-plugin-import": "^1.13.3",
     "crypto-js": "^4.0.0",
     "stylus": "^0.54.8",
-    "vite": "^2.0.0-beta.12"
+    "vite": "^2.0.0-beta.12",
+    "vite-plugin-style-import": "^0.4.6"
   },
   "author": "qiuquanwu"
 }
