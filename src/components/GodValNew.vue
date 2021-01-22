@@ -22,8 +22,8 @@
     </a-input-search>
   </div>
   <div style="text-algin: center; margin-top: 10px">
-    <a-checkbox v-model:checked="state.hasBaidu"> 有道 </a-checkbox>
-    <a-checkbox v-model:checked="state.hasYoudao"> 百度 </a-checkbox>
+    <a-checkbox v-model:checked="state.hasBaidu"> 百度 </a-checkbox>
+    <a-checkbox v-model:checked="state.hasYoudao"> 有道 </a-checkbox>
     <a-checkbox v-model:checked="state.showHistory"> 历史 </a-checkbox>
     <a-checkbox v-model:checked="options.bigHumpNaming"> 大驼峰 </a-checkbox>
     <a-checkbox v-model:checked="options.smallHumpNaming"> 小驼峰 </a-checkbox>
