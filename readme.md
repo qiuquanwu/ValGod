@@ -26,6 +26,7 @@ export const BD_KEY = 'qoLUfDJ1scEIdj3RitFC'
 - 实现按需加载antd-vue
 ## 2021年1月20日 13点55分
 - ui改版（2.0版本）
+![](./img/demov3.png)
 ## 2021年1月18日 18点45分
 - 优化体验
 ## 2021年1月17日 19点03分
@@ -35,6 +36,7 @@ export const BD_KEY = 'qoLUfDJ1scEIdj3RitFC'
 ## 2021年1月10日 07点48分
 - 按下回车触发
 - 取消alert提示
+![](./img/demov1.png)
 
 
 
