@@ -21,6 +21,11 @@ export const YD_KEY ='jYOJPLr0Mu9rCp77YAMWGYX1GirBe92w'
 export const BD_APP_ID = '20200811000539625'
 export const BD_KEY = 'qoLUfDJ1scEIdj3RitFC'
 ```
+# 计划中
+-  ❌批量导入，导出
+-  ✅️可设置需要的命名方式
+-  ❌自定义模板
+-  ❌项目约定命名文档生成
 # 更新日志
 ## 2021年1月21日 18点08分
 - 实现按需加载antd-vue
