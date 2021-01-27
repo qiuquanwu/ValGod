@@ -61,15 +61,13 @@
     <div style="padding: 0 25%">
       <a-divider>
         历史记录
-        <a-button type="primary"
-        title="导出历史记录"
-        size="small"
-        @click="showModal"
-          ><template #icon>
-            <DownloadOutlined />
-          </template
-          ></a-button
-        >
+        <a-button
+          type="primary"
+          title="导出历史记录"
+          size="small"
+          @click="showModal"
+          ><template #icon> <DownloadOutlined /> </template
+        ></a-button>
       </a-divider>
     </div>
     <div
@@ -101,21 +99,24 @@
       </a-row>
     </div>
   </div>
-  <ExportModal :visible="modalVisible" :historyDatas="state.historicalDatas" @closeModel="closeModel"/>
+  <ExportModal
+    :visible="modalVisible"
+    :historyDatas="state.historicalDatas"
+    @closeModel="closeModel"
+  />
 </template>
 
 <script setup>
-import {
-  DownloadOutlined
-} from '@ant-design/icons-vue';
-import { defineProps, ref, reactive } from "vue";
+import { DownloadOutlined } from "@ant-design/icons-vue";
+import { Modal } from "ant-design-vue"
+import { defineProps, ref, reactive, h, onMounted } from "vue";
 import { message } from "ant-design-vue";
 import { initState, optionState } from "../config";
 import getResultArray from "../util/getResultArray";
 import ResultItemNew from "./ResultItemNew.vue";
 import getParam from "../util/bd";
 import getYDParam from "../util/request";
-import ExportModal from "./ExportModal.vue"
+import ExportModal from "./ExportModal.vue";
 // 定义props
 const props = defineProps({
   titleName: String,
@@ -125,6 +126,21 @@ const state = reactive(initState);
 const options = reactive(optionState);
 const inputPlaceholder = ref("请输入内容,再点击确定或者回车");
 //获取焦点
+const info = () => {
+  Modal.info({
+    title: "BY:作者",
+    okText:"关闭",
+    content: h("div", {}, [
+      h("p", "如果此工具有帮助到你，请帮忙点个star。"),
+      h("p", "若希望给本工具一些建议，可以提issue。"),
+      h("p", "更新日志：✅️导出历史记录json数据。"),
+    ]),
+    onOk() {},
+  });
+};
+
+onMounted(info)
+
 const getFocus = () => {
   inputPlaceholder.value = "";
 };
@@ -201,14 +217,14 @@ const saveHistoricalData = () => {
 };
 
 // 导出
-let  modalVisible = ref(false)
-const showModal = ()=>{
-  modalVisible.value=true
-}
+let modalVisible = ref(false);
+const showModal = () => {
+  modalVisible.value = true;
+};
 
-const closeModel =()=>{
-  modalVisible.value=false
-}
+const closeModel = () => {
+  modalVisible.value = false;
+};
 </script>
 
 <style></style>
