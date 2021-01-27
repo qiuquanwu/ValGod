@@ -5,7 +5,7 @@ const genetator = {
     });
     return {
       id: "bigHumpNaming",
-      example: "FirstName",
+      //example: "FirstName",
       title: "大驼峰",
       value: res.join(""), //大驼峰
     };
@@ -19,7 +19,7 @@ const genetator = {
     });
     return {
       id: "smallHumpNaming",
-      example: "firstName",
+      //example: "firstName",
       title: "小驼峰",
       value: res.join(""),
     };
@@ -30,7 +30,7 @@ const genetator = {
       });
     return {
       id: "underlineNaming",
-      example: "first_name",
+      //example: "first_name",
       title: "下划线",
       value: res.join("_"),
     };
@@ -41,7 +41,7 @@ const genetator = {
       });
     return {
       id: "constant",
-      example: "FIRST_NAME",
+      //example: "FIRST_NAME",
       title: "常量",
       value: res.join("_"),
     };
@@ -55,7 +55,7 @@ const genetator = {
     });
     return {
       id: "php",
-      example: "$firstName",
+      //example: "$firstName",
       title: "php变量",
       value: "$"+res.join(""),
     };
@@ -66,7 +66,7 @@ const genetator = {
     });
     return {
       id: "controller",
-      example: "FirstNameController",
+      //example: "FirstNameController",
       title: "控制器",
       value: res.join("")+"Controller", 
     };
@@ -77,7 +77,7 @@ const genetator = {
       });
     return {
       id: "cssStyle",
-      example: "first-name",
+      //example: "first-name",
       title: "css类名",
       value: res.join("-"),
     };

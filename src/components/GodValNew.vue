@@ -36,7 +36,9 @@
   <a-row :gutter="[16, 8]" style="margin-top: 10px">
     <a-col :span="6" :offset="6" v-if="state.hasBaidu">
       <a-card title="百度">
-        <template #extra><a href="#">{{state.lastText}}</a></template>
+        <template #extra
+          ><a href="#">{{ state.lastText }}</a></template
+        >
         <p v-for="item of state.resultArray" :key="item.id">
           <result-item-new :resultItme="item" />
         </p>
@@ -44,7 +46,9 @@
     </a-col>
     <a-col :span="6">
       <a-card title="有道" v-if="state.hasYoudao">
-        <template #extra><a href="#">{{state.lastText}}</a></template>
+        <template #extra
+          ><a href="#">{{ state.lastText }}</a></template
+        >
         <p v-for="item of state.resultArrayBaidu" :key="item.id">
           <result-item-new :resultItme="item" />
         </p>
@@ -55,7 +59,18 @@
 
   <div style="margin-top: 10px" v-show="state.showHistory">
     <div style="padding: 0 25%">
-      <a-divider>历史记录</a-divider>
+      <a-divider>
+        历史记录
+        <a-button type="primary"
+        title="导出历史记录"
+        size="small"
+        @click="showModal"
+          ><template #icon>
+            <DownloadOutlined />
+          </template
+          ></a-button
+        >
+      </a-divider>
     </div>
     <div
       class="resultWrapBox"
@@ -65,7 +80,9 @@
       <a-row :gutter="[16, 8]" style="margin-top: 10px">
         <a-col :span="6" :offset="6" v-if="state.hasBaidu">
           <a-card title="百度">
-            <template #extra><a href="#">{{historicalData.name}}</a></template>
+            <template #extra
+              ><a href="#">{{ historicalData.name }}</a></template
+            >
             <p v-for="item of historicalData.resultArrayBaidu" :key="item.id">
               <result-item-new :resultItme="item" />
             </p>
@@ -73,7 +90,9 @@
         </a-col>
         <a-col :span="6">
           <a-card title="有道" v-if="state.hasYoudao">
-            <template #extra><a href="#">{{historicalData.name}}</a></template>
+            <template #extra
+              ><a href="#">{{ historicalData.name }}</a></template
+            >
             <p v-for="item of historicalData.resultArray" :key="item.id">
               <result-item-new :resultItme="item" />
             </p>
@@ -82,16 +101,21 @@
       </a-row>
     </div>
   </div>
+  <ExportModal :visible="modalVisible" :historyDatas="state.historicalDatas" @closeModel="closeModel"/>
 </template>
 
 <script setup>
+import {
+  DownloadOutlined
+} from '@ant-design/icons-vue';
 import { defineProps, ref, reactive } from "vue";
 import { message } from "ant-design-vue";
-import { initState ,optionState} from "../config";
+import { initState, optionState } from "../config";
 import getResultArray from "../util/getResultArray";
 import ResultItemNew from "./ResultItemNew.vue";
 import getParam from "../util/bd";
 import getYDParam from "../util/request";
+import ExportModal from "./ExportModal.vue"
 // 定义props
 const props = defineProps({
   titleName: String,
@@ -153,7 +177,11 @@ const apiPost = (url, data, type) => {
           .replace("the ", "")
           .replace("-", " ")
           .split(" ");
-        let resultArray = getResultArray(translateArray, state.options,options);
+        let resultArray = getResultArray(
+          translateArray,
+          state.options,
+          options
+        );
         resolve(resultArray);
       },
     });
@@ -171,6 +199,16 @@ const saveHistoricalData = () => {
     state.historicalDatas.push(historicalData);
   }
 };
+
+// 导出
+let  modalVisible = ref(false)
+const showModal = ()=>{
+  modalVisible.value=true
+}
+
+const closeModel =()=>{
+  modalVisible.value=false
+}
 </script>
 
 <style></style>
