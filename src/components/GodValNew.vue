@@ -1,12 +1,12 @@
 <template>
   <h1>
     {{ titleName }}
-    <a href="https://gitee.com/isfive/vite-programer/stargazers">
+    <!-- <a href="https://gitee.com/isfive/vite-programer/stargazers">
       <img
         src="https://gitee.com/isfive/vite-programer/badge/star.svg?theme=dark"
         alt="star"
       />
-    </a>
+    </a> -->
   </h1>
   <div style="padding: 0 25%">
     <a-input-search
@@ -25,6 +25,8 @@
     <a-checkbox v-model:checked="state.hasBaidu"> 百度 </a-checkbox>
     <a-checkbox v-model:checked="state.hasYoudao"> 有道 </a-checkbox>
     <a-checkbox v-model:checked="state.showHistory"> 历史 </a-checkbox>
+  </div>
+  <div style="text-algin: center; margin-top: 10px">
     <a-checkbox v-model:checked="options.bigHumpNaming"> 大驼峰 </a-checkbox>
     <a-checkbox v-model:checked="options.smallHumpNaming"> 小驼峰 </a-checkbox>
     <a-checkbox v-model:checked="options.underlineNaming"> 下划线 </a-checkbox>
@@ -32,6 +34,8 @@
     <a-checkbox v-model:checked="options.php"> php变量 </a-checkbox>
     <a-checkbox v-model:checked="options.controller"> 控制器 </a-checkbox>
     <a-checkbox v-model:checked="options.cssStyle"> css风格 </a-checkbox>
+     <a-checkbox v-model:checked="options.service"> 服务 </a-checkbox>
+     <a-checkbox v-model:checked="options.interfaceImplementation"> 接口实现类 </a-checkbox>
   </div>
   <a-row :gutter="[16, 8]" style="margin-top: 10px">
     <a-col :span="6" :offset="6" v-if="state.hasBaidu">

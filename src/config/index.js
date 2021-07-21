@@ -15,6 +15,8 @@ export let initState = {
         "php",
         "controller",
         "cssStyle",
+        "service",
+        "interfaceImplementation"
     ], //configurationItem
     resultArray: [],
     resultArrayBaidu: [],
@@ -32,4 +34,6 @@ export let optionState={
     php:true,
     controller:true,
     cssStyle:true,
+    service:false,
+    interfaceImplementation:false
 }

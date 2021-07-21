@@ -71,6 +71,28 @@ const genetator = {
       value: res.join("")+"Controller", 
     };
   },
+  service: (translateArray) => {
+    const res = translateArray.map((str) => {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+    return {
+      id: "service",
+      //example: "FirstNameController",
+      title: "服务",
+      value: res.join("")+"Service", 
+    };
+  },
+  interfaceImplementation: (translateArray) => {
+    const res = translateArray.map((str) => {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+    return {
+      id: "interfaceImplementation",
+      //example: "FirstNameController",
+      title: "接口实现类",
+      value: "I"+res.join("")+"Service", 
+    };
+  },
   cssStyle: (translateArray) => {
     const res = translateArray.map((str) => {
         return str.toLowerCase();
