@@ -55,6 +55,9 @@ find ./src "(" -name "*.html" -or -name "*.vue" -or -name "*.js" -or -name "*.ts
  1658 total
 
 ```
+## 2022年1月4日
+- 限定字符查询
+- 修复部分bug
 ## 2021年1月27日 13点06分
 - 历史查询导出json
 - ❌导出excel表格（ing）

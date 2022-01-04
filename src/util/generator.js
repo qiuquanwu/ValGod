@@ -56,7 +56,7 @@ const genetator = {
     return {
       id: "php",
       //example: "$firstName",
-      title: "php变量",
+      title: "PHP变量",
       value: "$"+res.join(""),
     };
   },
@@ -78,8 +78,8 @@ const genetator = {
     return {
       id: "service",
       //example: "FirstNameController",
-      title: "服务",
-      value: res.join("")+"Service", 
+      title: "服务接口",
+      value: "I"+res.join("")+"Service", 
     };
   },
   interfaceImplementation: (translateArray) => {
@@ -90,7 +90,7 @@ const genetator = {
       id: "interfaceImplementation",
       //example: "FirstNameController",
       title: "接口实现类",
-      value: "I"+res.join("")+"Service", 
+      value: res.join("")+"ServiceImpl", 
     };
   },
   cssStyle: (translateArray) => {

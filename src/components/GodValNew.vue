@@ -6,7 +6,7 @@
         src="https://gitee.com/isfive/vite-programer/badge/star.svg?theme=dark"
         alt="star"
       />
-    </a> -->
+    </a>-->
   </h1>
   <div style="padding: 0 25%">
     <a-input-search
@@ -17,32 +17,32 @@
       @search="onSearch"
     >
       <template #enterButton>
-        <a-button type="primary"> 查询 </a-button>
+        <a-button type="primary">查询</a-button>
       </template>
     </a-input-search>
   </div>
   <div style="text-algin: center; margin-top: 10px">
-    <a-checkbox v-model:checked="state.hasBaidu"> 百度 </a-checkbox>
-    <a-checkbox v-model:checked="state.hasYoudao"> 有道 </a-checkbox>
-    <a-checkbox v-model:checked="state.showHistory"> 历史 </a-checkbox>
+    <a-checkbox v-model:checked="state.hasBaidu">百度</a-checkbox>
+    <a-checkbox v-model:checked="state.hasYoudao">有道</a-checkbox>
+    <a-checkbox v-model:checked="state.showHistory">历史</a-checkbox>
   </div>
   <div style="text-algin: center; margin-top: 10px">
-    <a-checkbox v-model:checked="options.bigHumpNaming"> 大驼峰 </a-checkbox>
-    <a-checkbox v-model:checked="options.smallHumpNaming"> 小驼峰 </a-checkbox>
-    <a-checkbox v-model:checked="options.underlineNaming"> 下划线 </a-checkbox>
-    <a-checkbox v-model:checked="options.constant"> 常量 </a-checkbox>
-    <a-checkbox v-model:checked="options.php"> php变量 </a-checkbox>
-    <a-checkbox v-model:checked="options.controller"> 控制器 </a-checkbox>
-    <a-checkbox v-model:checked="options.cssStyle"> css风格 </a-checkbox>
-     <a-checkbox v-model:checked="options.service"> 服务 </a-checkbox>
-     <a-checkbox v-model:checked="options.interfaceImplementation"> 接口实现类 </a-checkbox>
+    <a-checkbox v-model:checked="options.bigHumpNaming">大驼峰</a-checkbox>
+    <a-checkbox v-model:checked="options.smallHumpNaming">小驼峰</a-checkbox>
+    <a-checkbox v-model:checked="options.underlineNaming">下划线</a-checkbox>
+    <a-checkbox v-model:checked="options.constant">常量</a-checkbox>
+    <a-checkbox v-model:checked="options.php">php变量</a-checkbox>
+    <a-checkbox v-model:checked="options.controller">控制器</a-checkbox>
+    <a-checkbox v-model:checked="options.cssStyle">css风格</a-checkbox>
+    <a-checkbox v-model:checked="options.service">服务</a-checkbox>
+    <a-checkbox v-model:checked="options.interfaceImplementation">接口实现类</a-checkbox>
   </div>
   <a-row :gutter="[16, 8]" style="margin-top: 10px">
     <a-col :span="6" :offset="6" v-if="state.hasBaidu">
       <a-card title="百度">
-        <template #extra
-          ><a href="#">{{ state.lastText }}</a></template
-        >
+        <template #extra>
+          <a href="#">{{ state.lastText }}</a>
+        </template>
         <p v-for="item of state.resultArray" :key="item.id">
           <result-item-new :resultItme="item" />
         </p>
@@ -50,9 +50,9 @@
     </a-col>
     <a-col :span="6">
       <a-card title="有道" v-if="state.hasYoudao">
-        <template #extra
-          ><a href="#">{{ state.lastText }}</a></template
-        >
+        <template #extra>
+          <a href="#">{{ state.lastText }}</a>
+        </template>
         <p v-for="item of state.resultArrayBaidu" :key="item.id">
           <result-item-new :resultItme="item" />
         </p>
@@ -65,13 +65,11 @@
     <div style="padding: 0 25%">
       <a-divider>
         历史记录
-        <a-button
-          type="primary"
-          title="导出历史记录"
-          size="small"
-          @click="showModal"
-          ><template #icon> <DownloadOutlined /> </template
-        ></a-button>
+        <a-button type="primary" title="导出历史记录" size="small" @click="showModal">
+          <template #icon>
+            <DownloadOutlined />
+          </template>
+        </a-button>
       </a-divider>
     </div>
     <div
@@ -82,9 +80,9 @@
       <a-row :gutter="[16, 8]" style="margin-top: 10px">
         <a-col :span="6" :offset="6" v-if="state.hasBaidu">
           <a-card title="百度">
-            <template #extra
-              ><a href="#">{{ historicalData.name }}</a></template
-            >
+            <template #extra>
+              <a href="#">{{ historicalData.name }}</a>
+            </template>
             <p v-for="item of historicalData.resultArrayBaidu" :key="item.id">
               <result-item-new :resultItme="item" />
             </p>
@@ -92,9 +90,9 @@
         </a-col>
         <a-col :span="6">
           <a-card title="有道" v-if="state.hasYoudao">
-            <template #extra
-              ><a href="#">{{ historicalData.name }}</a></template
-            >
+            <template #extra>
+              <a href="#">{{ historicalData.name }}</a>
+            </template>
             <p v-for="item of historicalData.resultArray" :key="item.id">
               <result-item-new :resultItme="item" />
             </p>
@@ -133,13 +131,13 @@ const inputPlaceholder = ref("请输入内容,再点击确定或者回车");
 const info = () => {
   Modal.info({
     title: "BY:作者",
-    okText:"关闭",
+    okText: "关闭",
     content: h("div", {}, [
       h("p", "如果此工具有帮助到你，请帮忙点个star。"),
       h("p", "若希望给本工具一些建议，可以提issue。"),
       h("p", "更新日志：✅️导出历史记录json数据。"),
     ]),
-    onOk() {},
+    onOk() { },
   });
 };
 
@@ -153,6 +151,10 @@ const onSearch = () => {
 };
 //  通过JS查询
 const queryByJs = async () => {
+  if (state.text.length > 16) {
+    message.error("单次搜索字符数不能超过20");
+    return
+  }
   //中文判断
   if (/^[\u4e00-\u9fa5]+$/i.test(state.text)) {
     saveHistoricalData();
@@ -209,8 +211,7 @@ const apiPost = (url, data, type) => {
 };
 // 保存历史数据
 const saveHistoricalData = () => {
-  if (state.resultArray.length === 0 || state.resultArrayBaidu.length === 0) {
-  } else {
+  if (state.resultArray.length !== 0 || state.resultArrayBaidu.length !== 0) {
     let historicalData = {
       name: state.lastText,
       resultArray: state.resultArray,
