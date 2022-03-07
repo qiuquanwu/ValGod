@@ -13,6 +13,7 @@
       源代码仓库
     </a-typography-link>
   </div>
+ 
   <div style="padding: 0 25%">
     <a-input-search
       v-model:value="state.text"
@@ -22,7 +23,7 @@
       @search="onSearch"
     >
       <template #enterButton>
-        <a-button type="primary">查询</a-button>
+        <a-button type="primary" :loading="loading">查询</a-button>
       </template>
     </a-input-search>
   </div>
@@ -146,6 +147,7 @@ const info = () => {
   });
 };
 
+const loading=ref(false)
 // onMounted(info)
 
 const getFocus = () => {
@@ -156,6 +158,7 @@ const onSearch = () => {
 };
 //  通过JS查询
 const queryByJs = async () => {
+  loading.value=true
   if (state.text.length > 16) {
     message.error("单次搜索字符数不能超过20");
     return
@@ -177,6 +180,7 @@ const queryByJs = async () => {
       dataYd,
       "post"
     );
+    loading.value=false
     state.resultArrayBaidu = resultArrayBaidu;
     state.resultArray = resultArray;
     state.lastText = state.text;
