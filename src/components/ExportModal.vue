@@ -13,14 +13,14 @@
 </template>
 
 <script setup>
-import { computed, defineProps, defineEmit, ref } from "vue";
+import { computed, ref } from "vue";
 import JsonView from "./JsonView.vue";
 // 定义props
 const props = defineProps({
   historyDatas: Array,
   visible: Boolean,
 });
-const emit = defineEmit(["closeModel"]);
+const emit = defineEmits(["closeModel"]);
 //将object转化
 const historyDatasJSON = computed(() => {
   return JSON.parse(JSON.stringify(props.historyDatas)

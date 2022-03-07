@@ -8,6 +8,11 @@
       />
     </a>-->
   </h1>
+  <div>
+  <a-typography-link href="https://github.com/qiuquanwu/ValGod" target="_blank">
+      源代码仓库
+    </a-typography-link>
+  </div>
   <div style="padding: 0 25%">
     <a-input-search
       v-model:value="state.text"
@@ -111,7 +116,7 @@
 <script setup>
 import { DownloadOutlined } from "@ant-design/icons-vue";
 import { Modal } from "ant-design-vue"
-import { defineProps, ref, reactive, h, onMounted } from "vue";
+import {  ref, reactive, h, onMounted } from "vue";
 import { message } from "ant-design-vue";
 import { initState, optionState } from "../config";
 import getResultArray from "../util/getResultArray";
@@ -141,7 +146,7 @@ const info = () => {
   });
 };
 
-onMounted(info)
+// onMounted(info)
 
 const getFocus = () => {
   inputPlaceholder.value = "";

@@ -23,27 +23,27 @@ import GodValNew from './components/GodValNew.vue'
 }
 /*去除a标签下划线*/
 a {
-	text_decoration: none;
+	text-decoration: none;
 }
 /*去除未被访问的a标签的下划线*/
 a:link {
-	text_decoration: none;
+	text-decoration: none;
 }
 /*去除已经被访问过的a标签的下划线*/
 a:visited {
-	text_decoration: none;
+	text-decoration: none;
 }
 /*去除鼠标悬停时的a标签的下划线*/
 a:hover {
-	text_decoration: none;
+	text-decoration: none;
 }
 /*去除正在点击的a标签的下划线（鼠标按下，尚未松开）*/
 a:active {
-	text_decoration: none;
+	text-decoration: none;
 }
 /*去除获得焦点的a标签的下划线（被鼠标点击过）*/
 a:focus {
-	text_decoration: none;
+	text-decoration: none;
 }
 
 </style>
