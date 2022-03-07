@@ -15,8 +15,8 @@ export default {
       },
     }]
   })],
+  base: "./",
   build: {
-    base: "./",
     assetsDir: "asset/"
   }
 }
