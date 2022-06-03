@@ -6,7 +6,7 @@
       class="btn"
       :data-clipboard-text="resultItme.value"
       @click="copy"
-      title="复制"
+      title="点击复制"
     >
       <img src="../assets/copy.png" class="icon" />
     </button>

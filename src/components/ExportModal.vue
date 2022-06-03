@@ -8,7 +8,10 @@
     cancelText="取消"
     okText="确定导出"
   >
-    <JsonView :json="historyDatasJSON" :closed="true"></JsonView>
+  <div class="json-body">
+    <JsonView :json="historyDatasJSON" :closed="true" style="overflow: auto;"></JsonView>
+  </div>
+
   </a-modal>
 </template>
 
@@ -69,4 +72,9 @@ const handleCancel = () => {
 };
 </script>
 
-<style></style>
+<style>
+
+.json-body{
+  max-height: 600px;
+}
+</style>
