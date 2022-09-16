@@ -71,11 +71,15 @@
     <div style="padding: 0 25%">
       <a-divider>
         历史记录
-        <a-button type="primary" title="导出历史记录" size="small" @click="showModal">
+
+        <a-space>
+          <a-button type="primary" title="导出历史记录" size="small" @click="showModal">
           <template #icon>
             <DownloadOutlined />
           </template>
         </a-button>
+        </a-space>
+
       </a-divider>
     </div>
     <div
@@ -108,7 +112,7 @@
     </div>
   </div>
   <ExportModal
-    :visible="modalVisible"
+    v-model:visible="modalVisible"
     :historyDatas="state.historicalDatas"
     @closeModel="closeModel"
   />

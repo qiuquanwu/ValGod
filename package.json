@@ -2,7 +2,7 @@
   "name": "val-god",
   "version": "2.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5419",
     "build": "vite build"
   },
   "dependencies": {
