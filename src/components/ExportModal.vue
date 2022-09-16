@@ -1,6 +1,10 @@
 <template>
+
   <a-modal title="导出历史记录" v-bind="$attrs" :confirm-loading="confirmLoading">
-    <JsonView :json="historyDatasJSON" :closed="true"></JsonView>
+
+    <div class="json-body">
+      <JsonView :json="historyDatasJSON" :closed="true" style="overflow: auto;"></JsonView>
+    </div>
 
     <template #footer>
       <div>
@@ -11,13 +15,14 @@
         </a-space>
       </div>
     </template>
+
   </a-modal>
 </template>
 
 <script setup>
 import { computed, ref } from "vue";
 import JsonView from "./JsonView.vue";
-import {JSONToExcelConvertor} from "../util/excel"
+import { JSONToExcelConvertor } from "../util/excel"
 // 定义props
 const props = defineProps({
   historyDatas: Array,
@@ -93,7 +98,7 @@ const handleOkExcel = () => {
 
 const excelExport = (data) => {
   // let vm = this;
-  let titles = ["文本","大驼峰", "小驼峰", "下划线", "常量", "php变量", "控制器", "css样式", "服务类","接口实现类"];
+  let titles = ["文本", "大驼峰", "小驼峰", "下划线", "常量", "php变量", "控制器", "css样式", "服务类", "接口实现类"];
   let keys = [
     "text",
     "bigHumpNaming",
@@ -121,5 +126,7 @@ const handleCancel = () => {
 </script>
 
 <style>
-
+.json-body {
+  max-height: 600px;
+}
 </style>

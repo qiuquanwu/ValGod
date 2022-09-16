@@ -1,27 +1,16 @@
 <template>
   <h1>
     {{ titleName }}
-    <!-- <a href="https://gitee.com/isfive/vite-programer/stargazers">
-      <img
-        src="https://gitee.com/isfive/vite-programer/badge/star.svg?theme=dark"
-        alt="star"
-      />
-    </a>-->
   </h1>
   <div>
-  <a-typography-link href="https://github.com/qiuquanwu/ValGod" target="_blank">
+    <a-typography-link href="https://github.com/qiuquanwu/ValGod" target="_blank">
       源代码仓库
     </a-typography-link>
   </div>
- 
+
   <div style="padding: 0 25%">
-    <a-input-search
-      v-model:value="state.text"
-      :placeholder="inputPlaceholder"
-      size="large"
-      @focus="getFocus"
-      @search="onSearch"
-    >
+    <a-input-search v-model:value="state.text" :placeholder="inputPlaceholder" size="large" @focus="getFocus"
+      @search="onSearch">
       <template #enterButton>
         <a-button type="primary" :loading="loading">查询</a-button>
       </template>
@@ -74,19 +63,16 @@
 
         <a-space>
           <a-button type="primary" title="导出历史记录" size="small" @click="showModal">
-          <template #icon>
-            <DownloadOutlined />
-          </template>
-        </a-button>
+            <template #icon>
+              <DownloadOutlined />
+            </template>
+          </a-button>
         </a-space>
 
       </a-divider>
     </div>
-    <div
-      class="resultWrapBox"
-      v-for="(historicalData, index) of state.historicalDatas"
-      :key="index"
-    >
+    <div class="resultWrapBox" v-for="(historicalData, index) of state.historicalDatas" :key="index"
+      :id="historicalData.name">
       <a-row :gutter="[16, 8]" style="margin-top: 10px">
         <a-col :span="6" :offset="6" v-if="state.hasBaidu">
           <a-card title="百度">
@@ -111,17 +97,22 @@
       </a-row>
     </div>
   </div>
-  <ExportModal
-    v-model:visible="modalVisible"
-    :historyDatas="state.historicalDatas"
-    @closeModel="closeModel"
-  />
+  <ExportModal v-model:visible="modalVisible" :historyDatas="state.historicalDatas" @closeModel="closeModel" />
+  <div class="history_datas">
+    <Card title="查询历史" border="none">
+      <div v-if="state.historicalDatas.length == 0">暂无记录</div>
+      <div v-for="item of state.historicalDatas" :key="item.name" style="padding-bottom: 8px;">
+        <a-typography-link :href="'#' + item.name">
+          {{ item.name }}
+        </a-typography-link>
+      </div>
+    </Card>
+  </div>
 </template>
-
 <script setup>
 import { DownloadOutlined } from "@ant-design/icons-vue";
-import { Modal } from "ant-design-vue"
-import {  ref, reactive, h, onMounted } from "vue";
+import { Modal, Card } from "ant-design-vue"
+import { ref, reactive, h, onMounted, watch, toRaw } from "vue";
 import { message } from "ant-design-vue";
 import { initState, optionState } from "../config";
 import getResultArray from "../util/getResultArray";
@@ -135,7 +126,12 @@ const props = defineProps({
 });
 // 初始化state
 const state = reactive(initState);
-const options = reactive(optionState);
+const options = reactive(JSON.parse(localStorage.getItem("optionState")) || optionState);
+
+watch(options, (val) => {
+  console.log("改变", toRaw(val))
+  localStorage.setItem("optionState", JSON.stringify(val))
+})
 const inputPlaceholder = ref("请输入内容,再点击确定或者回车");
 //获取焦点
 const info = () => {
@@ -151,7 +147,7 @@ const info = () => {
   });
 };
 
-const loading=ref(false)
+const loading = ref(false)
 // onMounted(info)
 
 const getFocus = () => {
@@ -162,7 +158,7 @@ const onSearch = () => {
 };
 //  通过JS查询
 const queryByJs = async () => {
-  loading.value=true
+  loading.value = true
   if (state.text.length > 16) {
     message.error("单次搜索字符数不能超过20");
     return
@@ -184,7 +180,7 @@ const queryByJs = async () => {
       dataYd,
       "post"
     );
-    loading.value=false
+    loading.value = false
     state.resultArrayBaidu = resultArrayBaidu;
     state.resultArray = resultArray;
     state.lastText = state.text;
@@ -245,4 +241,13 @@ const closeModel = () => {
 };
 </script>
 
-<style></style>
+<style>
+.history_datas {
+  position: fixed;
+  top: 20%;
+  left: 1rem;
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
+  max-height: 1200px;
+  overflow: auto;
+}
+</style>
