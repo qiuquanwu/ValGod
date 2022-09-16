@@ -56,7 +56,7 @@ function downFileH5(content, filename) {
 const handleOk = (e) => {
   confirmLoading.value = true;
   // console.log(JSON.stringify(props.historyDatas))
-  if (historyDatas.length == 0) {
+  if (props.historyDatas.length == 0) {
     message.error("历史记录为空！"); // 释放内存
     return
   }
