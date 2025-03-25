@@ -5,7 +5,7 @@
 - 构建工具：vite
 - 复制粘贴插件：clipboard.js
 - 请求库：axios
-- 在线地址：[http://isfive.gitee.io/vite-programer/](http://isfive.gitee.io/vite-programer/)
+<!-- - 在线地址：[http://isfive.gitee.io/vite-programer/](http://isfive.gitee.io/vite-programer/) -->
 - 在线地址：[备用地址](https://valgod.vercel.app/)
 - github仓库：[备用仓库](https://github.com/qiuquanwu/ValGod)
 # 私有部署
